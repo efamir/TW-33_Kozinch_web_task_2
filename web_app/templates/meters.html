@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-left">Лічильники</h2>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-primary">
+        <tr>
+            <th>Ідентифікатор лічильника</th>
+        </tr>
+        <tr>
+            <form action="/add_meter" method="post" class="d-flex">
+                <td>
+                    <div class="d-flex gap-2">
+                        <input type="number" class="form-control" name="meter_id" min="0" required>
+                        <button type="submit" class="btn btn-primary">Додати</button>
+                    </div>
+                </td>
+            </form>
+        </tr>
+        </thead>
+        <tbody>
+        {% for meter in meters %}
+        <tr>
+            <td>{{ meter.meter_id }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

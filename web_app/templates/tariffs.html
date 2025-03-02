@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-left">Тарифи</h2>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Денний тариф (грн)</th>
+                <th>Нічний тариф (грн)</th>
+                <th>Дата створення</th>
+                <th>Дії</th>
+            </tr>
+            <tr>
+                <form action="/add_tariff" method="post" class="d-flex align-items-center">
+                    <td><input type="number" step="0.01" class="form-control" name="day_tariff" min="0.01" required></td>
+                    <td><input type="number" step="0.01" class="form-control" name="night_tariff" min="0.01" required></td>
+                    <td>-</td>
+                    <td class="d-flex gap-2">
+                        <button type="submit" name="set_as_current" value="false" class="btn btn-primary">Додати</button>
+                        <button type="submit" name="set_as_current" value="true" class="btn btn-success">Додати і застосувати</button>
+                    </td>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tariff in tariff_history %}
+            <tr class="{% if current_tariff and current_tariff._id == tariff._id %}table-success{% endif %}">
+                <td>{{ tariff.day_tariff }}</td>
+                <td>{{ tariff.night_tariff }}</td>
+                <td>{{ tariff.date_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    {% if current_tariff and current_tariff._id == tariff._id %}
+                        Поточний
+                    {% else %}
+                        <form action="/set_tariff" method="post" class="d-inline">
+                            <input type="hidden" name="tariff_id" value="{{ tariff._id }}">
+                            <button type="submit" class="btn btn-outline-success">Застосувати</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

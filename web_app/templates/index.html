@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-left">Показання лічильників</h2>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Індекс Лічильника</th>
+                <th>День</th>
+                <th>Ніч</th>
+                <th>Тариф (День/Ніч, грн)</th>
+                <th>Ціна</th>
+            </tr>
+            <tr>
+                <form action="/add_reading" method="post" class="d-flex">
+                    <td><input type="number" class="form-control" name="meter_id" min="0" required></td>
+                    <td><input type="number" class="form-control" name="phase1" min="0" required></td>
+                    <td><input type="number" class="form-control" name="phase2" min="0" required></td>
+                    <td>-</td>
+                    <td><button type="submit" class="btn btn-primary">Додати</button></td>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meter in meters_data %}
+            <tr>
+                <td>{{ meter.meter_id }}</td>
+                <td>{{ meter.day }}</td>
+                <td>{{ meter.night }}</td>
+                <td>{{ meter.tariff.day_tariff }} / {{ meter.tariff.night_tariff }}</td>
+                <td>{{ meter.cost }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -11,6 +11,7 @@
                 <th>День</th>
                 <th>Ніч</th>
                 <th>Тариф (День/Ніч, грн)</th>
+                <th>Дата введення</th>
                 <th>Ціна</th>
             </tr>
             <tr>
@@ -18,6 +19,7 @@
                     <td><input type="number" class="form-control" name="meter_id" min="0" required></td>
                     <td><input type="number" class="form-control" name="phase1" min="0" required></td>
                     <td><input type="number" class="form-control" name="phase2" min="0" required></td>
+                    <td>-</td>
                     <td>-</td>
                     <td><button type="submit" class="btn btn-primary">Додати</button></td>
                 </form>
@@ -30,6 +32,7 @@
                 <td>{{ meter.day }}</td>
                 <td>{{ meter.night }}</td>
                 <td>{{ meter.tariff.day_tariff }} / {{ meter.tariff.night_tariff }}</td>
+                <td>{{ meter.date_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                 <td>{{ meter.cost }}</td>
             </tr>
             {% endfor %}
